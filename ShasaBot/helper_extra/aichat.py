@@ -5,26 +5,20 @@ talkmode = db_x["TALKMODE"]
 
 
 def add_chat(chat_id):
-    stark = lydia.find_one({"chat_id": chat_id})
-    if stark:
+    if stark := lydia.find_one({"chat_id": chat_id}):
         return False
-    else:
-        lydia.insert_one({"chat_id": chat_id})
-        return True
+    lydia.insert_one({"chat_id": chat_id})
+    return True
 
 
 def remove_chat(chat_id):
-    stark = lydia.find_one({"chat_id": chat_id})
-    if not stark:
-        return False
-    else:
+    if stark := lydia.find_one({"chat_id": chat_id}):
         lydia.delete_one({"chat_id": chat_id})
         return True
+    else:
+        return False
 
 
 def get_session(chat_id):
     star = talkmode.find_one({"chat_id": chat_id})
-    if not star:
-        return False
-    else:
-        return star
+    return False if not star else star

@@ -9,10 +9,7 @@ from ShasaBot.modules.sql.setbio_sql import set_bio, rm_bio, check_bio_status, i
 async def is_admin(event, user):
     try:
         sed = await event.client.get_permissions(event.chat_id, user)
-        if sed.is_admin:
-            is_mod = True
-        else:
-            is_mod = False
+        is_mod = bool(sed.is_admin)
     except:
         is_mod = False
     return is_mod
@@ -54,15 +51,9 @@ async def can_change_info(message):
 
 
 def sudo(iid):
-  k = iid
-  if sql.is_sudo(k):
-   return True
-  else:
-   return False
+    k = iid
+    return bool(sql.is_sudo(k))
 
 def bio(iid):
- k = iid
- if is_bio(k):
-  return True
- else:
-  return False
+    k = iid
+    return bool(is_bio(k))
